@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "bookiteasy-437823",
+  "private_key_id": "1218136af105345f23e578c299d9c3f44eadc212",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDc+F6ihCDvDrD3\nbuBBuF78Hx1JFj07b9Nt6KoSV4/HJTZie70aKrYxEy0abYt/zBoQEptX7QTcz8Ky\nPY1ao2KOjkVPgaMrtUzIpPO4CLkN5MNr/NIP/N42S+rdjO4LS2/5QbL6j86O7oDx\n1//NaDqXsNGQCwVrUPBn2ZOpK+V8pZBdc8C63Btp5wlkeWgFRROgNqqA90sqk9xS\ns1XI5eNxWN3rBqsw5MDOom2y7P0VHrXuLvSNtlM5H+jm/Q6ecgp27PJtiQmruLRQ\nDXITV2XRALlb2uPQzmMGFf5ZXV+KuTsdsDlpixWj0HvN/NWSY5LhDVnnAg2tS2eE\nOD71FnanAgMBAAECggEAHy5IWFbHDkS8nGW/wmEBvOz9D8Oncfwr0b4Q8FP9HLpi\nYWTu6xgs1mGg2IettXkNEnM1tXi42hnScklflB3VufeseHV6xh+oDUYYLWzEWYgM\nOsWVtMjXaG0FCtdTUzJaw3RNt6/+6J9ngE5HsT9XHpxGWLTywlEiY10fSjIWCM+m\n3FhSWKBp2XnD2DVUcyAj3fh/aj81oqbeV4VwAWL+n+Aee5LAyI2SBOqh95+PENpJ\n5hbnrrDHUkCI5+FD/p9NkZG4Y815MB6c6a9FXpKt+fPNo+RudJ5pprLAFjDnVUDO\n9VHL6eVgEaassWG14m4WlXeaoMH+mnER9TPd7MO2tQKBgQD6t7FILRqYfVDH2Xjg\nMKkrD9bThPPYFBlgMjQYUKtUttT+Y6T3gRw5AjB0mapHp3hrr5zJylDADd/YcJaD\nSr5eQE3dSotUGqOJRXFAsJ37clvu9kezEFhXGV88BhrKpy8RCW2r0ge169WnI5N8\n1/IaTIUaIhtCbJZc/tuUwZcdFQKBgQDhoDo2yqUVHw/rYzoqQuyvaTxMjsDO2nfR\nfheHNeb8GrjrtCMd007lzY/nwNouJLhn2Dnp1QWsoF9yZ4MVWnKzttLGiFWpDBWr\njWAk6h74g5GO5KcNTtpB/B8rFdtRNyeEi6aTfMhdCZIi8dRc8iixuU/fKraPx4dB\n8Tr43ZiLywKBgQDuH6u0dopNDLC9r5J7tBvoN1n9ecgzkRts3yHVekDP6/quRqu3\nG5xXlPm6tPwipC/eb2PF0G8Tidnx8zUxK7tVP1P0+skML2Tlitv+6gCSglJIywbc\nTojo6MMn+lBV66XrU34jdA84vO4mmcaKC3v5eHXulTg4xXOmjbS2O4wv5QKBgDO+\ngVtLgiyj4QzExvQmQQ3Bfri4DHPkGpKK7m5t6DltD3fO6jbO3UtKp3QpAGCQv1Hh\nfvanihOa/AjKwH9HLQMWLKSnY63PPbEITUJqBwxLcDhrK/ybVubHIYbKDnBDy+ZT\n+LHebj0YEtG80E04pCiOLUkrDI9Q3S48Wp/0giWdAoGBAMH/Qy/xdSMkN3A+iiSP\nJ7zoCUHJvIQ2IFu15vg3SAOnmYSETcNtVYsfAR9zpmD/H1ohtGRGkqXE0v3aWA/l\nP3C2gdgw8ojFPJ+bsO+hTOj+qm6qpB4xiHr4jFW5JDfmESLuG3k8zfKWGUJwv7I4\nA6LQ5t3sYB2O/owGhuMw+VQ1\n-----END PRIVATE KEY-----\n",
+  "client_email": "bookiteasy-storage-service@bookiteasy-437823.iam.gserviceaccount.com",
+  "client_id": "100905086404996149085",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bookiteasy-storage-service%40bookiteasy-437823.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
