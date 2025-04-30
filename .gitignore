@@ -3,11 +3,13 @@ bin/
 obj/
 [Bb]uild/
 [Ll]og/
+.vs/
 
 # User Secrets (Secret Manager)
 **/secrets.json
 appsettings.*.json
 .env
+creds/
 
 # Migrations
 

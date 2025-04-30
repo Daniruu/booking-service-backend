@@ -54,6 +54,27 @@ namespace BookingService.Controllers
             return Ok(new { expiresAt = result.Data });
         }
 
+        [HttpPost("email-code/verifications")]
+        public async Task<IActionResult> VerifyRecoveryCode(EmailCodeVerificationDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state for verification code request.");
+                return BadRequest(ModelState);
+            }
+
+            _logger.LogInformation("Verifying recovery code for email: {Email}", dto.Email);
+            var result = await _confirmationCodeService.VerifyAsync(dto.Email, dto.Code, ConfirmationCodeType.PasswordRecovery);
+
+            if (!result.Success)
+            {
+                _logger.LogWarning("Failed to verify recovery code to: {Email}, reason: {Reason}", dto.Email, result.ErrorMessage);
+                return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+            }
+
+            return NoContent();
+        }
+
         /// <summary>
         /// Resets the user's password using a previously sent recovery code.
         /// </summary>

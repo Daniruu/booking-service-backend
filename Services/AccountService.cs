@@ -1,4 +1,5 @@
-﻿using BookingService.Data;
+﻿using AutoMapper;
+using BookingService.Data;
 using BookingService.DTOs;
 using BookingService.Models;
 using BookingService.Repositories;
@@ -17,18 +18,34 @@ namespace BookingService.Services
         private readonly IPasswordHasher _passwordHasher;
         private readonly BookingServiceDbContext _context;
         private readonly ILogger<AccountService> _logger;
+        private readonly IMapper _mapper;
+
         public AccountService(
             IConfirmationCodeService confirmationCodeService, 
             IAccountRepository accountRepository, 
             IPasswordHasher passwordHasher,
             BookingServiceDbContext context, 
-            ILogger<AccountService> logger)
+            ILogger<AccountService> logger,
+            IMapper mapper)
         {
             _confirmationCodeService = confirmationCodeService;
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _context = context;
             _logger = logger;
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResult<AccountDto>> GetByIdAsync(int accountId)
+        {
+            var account = await _accountRepository.GetByIdAsync(accountId);
+            if (account == null)
+            {
+                _logger.LogWarning("Account not found for ID {AccountId}", accountId);
+                return ServiceResult<AccountDto>.Failure("Account not found.", 404);
+            }
+
+            return ServiceResult<AccountDto>.SuccessResult(_mapper.Map<AccountDto>(account));
         }
 
         /// <summary>

@@ -13,6 +13,10 @@ namespace BookingService.Repositories
             _context = context;
         }
 
+        public async Task<List<BusinessCategory>> GetAll()
+        {
+            return await _context.BusinessCategories.ToListAsync();
+        }
         public async Task AddAsync(BusinessCategory businessCategory)
         {
             await _context.BusinessCategories.AddAsync(businessCategory);

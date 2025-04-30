@@ -50,7 +50,8 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                _logger.LogWarning("User data retrieved successfully: {UserId}", userId);
+                return Ok(new { userDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {

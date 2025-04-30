@@ -55,6 +55,27 @@ namespace BookingService.Controllers
             return Ok(new { expiresAt = result.Data });
         }
 
+        [HttpPost("email-code/verifications")]
+        public async Task<IActionResult> VerifyEmailCode(EmailCodeVerificationDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state for verification code request.");
+                return BadRequest(ModelState);
+            }
+
+            _logger.LogInformation("Verifying confirmation code for email: {Email}", dto.Email);
+            var result = await _confirmationCodeService.VerifyAsync(dto.Email, dto.Code, ConfirmationCodeType.EmailConfirmaiton);
+
+            if (!result.Success)
+            {
+                _logger.LogWarning("Failed to verify confirmation code to: {Email}, reason: {Reason}", dto.Email, result.ErrorMessage);
+                return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+            }
+
+            return NoContent();
+        }
+
         /// <summary>
         /// Register a new user account.
         /// </summary>

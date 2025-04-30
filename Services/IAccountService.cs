@@ -9,6 +9,8 @@ namespace BookingService.Services
     /// </summary>
     public interface IAccountService
     {
+        Task<ServiceResult<AccountDto>> GetByIdAsync(int accountId);
+
         /// <summary>
         /// Sends a confirmation code to the new email address to verify the email change.
         /// </summary>

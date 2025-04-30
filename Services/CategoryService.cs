@@ -7,14 +7,14 @@ using BookingService.Utils;
 
 namespace BookingService.Services
 {
-    public class AdminService : IAdminService
+    public class CategoryService : ICategoryService
     {
         private readonly BookingServiceDbContext _context;
         private readonly IBusinessCategoryRespository _businessCategoryRepository;
         private readonly IGoogleCloudStorageService _googleCloudStorageService;
         private readonly IMapper _mapper;
 
-        public AdminService(BookingServiceDbContext context, IBusinessCategoryRespository businessCategoryRepository, IGoogleCloudStorageService googleCloudStorageService, IMapper mapper)
+        public CategoryService(BookingServiceDbContext context, IBusinessCategoryRespository businessCategoryRepository, IGoogleCloudStorageService googleCloudStorageService, IMapper mapper)
         {
             _context = context;
             _businessCategoryRepository = businessCategoryRepository;
@@ -61,6 +61,14 @@ namespace BookingService.Services
             {
                 return ServiceResult<int>.Failure("An unexpected error occurred while adding the category.", 500);
             }
+        }
+
+        public async Task<ServiceResult<List<BusinessCategoryDto>>> GetAllCategories()
+        {
+            var categories = await _businessCategoryRepository.GetAll();
+            var categoryDtos = _mapper.Map<List<BusinessCategoryDto>>(categories);
+
+            return ServiceResult<List<BusinessCategoryDto>>.SuccessResult(categoryDtos);
         }
     }
 }

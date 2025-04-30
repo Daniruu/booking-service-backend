@@ -44,26 +44,6 @@ namespace BookingService.Services
 
             email = email.Trim().ToLower();
 
-            switch (type)
-            {
-                case ConfirmationCodeType.EmailConfirmaiton:
-                    if (await _accountRepository.EmailExistsAsync(email))
-                    {
-                        _logger.LogWarning("Email already registered: {Email}", email);
-                        return ServiceResult<DateTimeOffset>.Failure("Email is already registered.", 409);
-                    }
-                    break;
-
-                case ConfirmationCodeType.PasswordRecovery:
-                case ConfirmationCodeType.EmailChange:
-                    if (!await _accountRepository.EmailExistsAsync(email))
-                    {
-                        _logger.LogWarning("Email not found for action {Type}: {Email}", type, email);
-                        return ServiceResult<DateTimeOffset>.Failure("Email not found.", 404);
-                    }
-                    break;
-            }
-
             var existingCode = await _codeRepository.GetByEmailAndTypeAsync(email, type);
             if (existingCode != null && DateTimeOffset.UtcNow < existingCode.LastRequestTime.AddMinutes(1))
             {

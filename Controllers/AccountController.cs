@@ -23,6 +23,32 @@ namespace BookingService.Controllers
             _logger = logger;
         }
 
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentAccount()
+        {
+            try
+            {
+                var accountId = User.GetUserId();
+
+                _logger.LogInformation("Retrieving current account.");
+                var result = await _accountService.GetByIdAsync(accountId);
+
+                if (!result.Success)
+                {
+                    _logger.LogWarning("Failed to get account: {AccountId}, reason: {Reason}", accountId, result.ErrorMessage);
+                    return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+                }
+
+                _logger.LogWarning("Account data retrieved successfully: {AccountId}", accountId);
+                return Ok(new { accountDto = result.Data });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogError(ex, "Unauthorized access attempt during retrieval of current account.");
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
+
         /// <summary>
         /// Sends a confirmation code to the new email address to verify email change.
         /// </summary>

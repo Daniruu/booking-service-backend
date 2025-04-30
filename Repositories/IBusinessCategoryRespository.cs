@@ -4,6 +4,7 @@ namespace BookingService.Repositories
 {
     public interface IBusinessCategoryRespository
     {
+        Task<List<BusinessCategory>> GetAll();
         Task AddAsync(BusinessCategory businessCategory);
         Task UpdateCategory(BusinessCategory businessCategory);
         Task RemoveCategory(BusinessCategory businessCategory);

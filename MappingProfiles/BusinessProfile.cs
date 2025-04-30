@@ -22,9 +22,6 @@ namespace BookingService.MappingProfiles
                 .ForMember(dest => dest.RefreshExpiryTime, opt => opt.Ignore())
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => Roles.Business));
 
-            CreateMap<BusinessCategoryCreateDto, BusinessCategory>()
-                .ForMember(dest => dest.IconUrl, opt => opt.Ignore());
-
             CreateMap<BusinessUpdateDto, Business>();
 
             CreateMap<AddressUpdateDto, Address>();

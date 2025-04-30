@@ -10,12 +10,12 @@ namespace BookingService.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminService _adminService;
+        private readonly ICategoryService _categoryService;
         private readonly ILogger<AdminController> _logger;
 
-        public AdminController(IAdminService adminService, ILogger<AdminController> logger)
+        public AdminController(ICategoryService categorySerivice, ILogger<AdminController> logger)
         {
-            _adminService = adminService;
+            _categoryService = categorySerivice;
             _logger = logger;
         }
 
@@ -63,7 +63,7 @@ namespace BookingService.Controllers
             try
             {
                 _logger.LogInformation("Admin attempting to add new business category: {Name}", dto.Name);
-                var result = await _adminService.AddBusinessCategoryAsync(dto);
+                var result = await _categoryService.AddBusinessCategoryAsync(dto);
 
                 if (!result.Success)
                 {
@@ -80,6 +80,5 @@ namespace BookingService.Controllers
                 return StatusCode(500, new { message = "Internal server error while creating category." });
             }
         }
-
     }
 }
