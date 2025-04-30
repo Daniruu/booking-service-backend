@@ -19,27 +19,22 @@ Technologies used include .NET 8.0 for the API, JWT for secure authentication, a
 
 1. **Clone the repository:**
 ```bash
-   git clone https://github.com/Daniruu/BookingService.git
+   git clone https://github.com/Daniruu/booking-service-backend.git
    cd BookingService
 ```
 
 2. **Set up the database:**
   - Install PostgreSQL and create a new database.
-  - Configure the `appsettings.json` file to include your database connection information:
-```json
-{
-  "ConntectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=BookingServiceDb;Username=myuser;Password=mypassword"
-	},
-  "Jwt": {
-    "Key": "YourSuperSecretKeyHere",
-    "Issuer": "https://your-domain.com",
-    "Audience": "https://your-domain.com",
-    "ExpireMinutes": "5"
-  },
-}
+  - Configure the connection string and JWT settings using [User Secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets), instead of storing them in `appsettings.json`.
+Example connection string
+Host=localhost;Database=BookingServiceDb;Username=myuser;Password=mypassword
+```bash
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Database=BookingServiceDb;Username=myuser;Password=mypassword"
+dotnet user-secrets set "Jwt:Key" "YourSuperSecretKeyHere"
+dotnet user-secrets set "Jwt:Issuer" "https://your-domain.com"
+dotnet user-secrets set "Jwt:Audience" "https://your-domain.com"
+dotnet user-secrets set "Jwt:ExpireMinutes" "5"
 ```
-
 3. **Apply migrations:**
 - Install Entity Framework tools:
 ```bash
