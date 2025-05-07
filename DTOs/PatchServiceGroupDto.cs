@@ -1,6 +1,6 @@
 ﻿namespace BookingService.DTOs
 {
-    public class ServiceGroupUpdateDto
+    public class PatchServiceGroupDto
     {
         public string Name { get; set; }
     }

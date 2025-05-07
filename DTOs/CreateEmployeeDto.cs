@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class EmployeeUpdateDto
+    public class CreateEmployeeDto
     {
         [Required]
         public string Position { get; set; }

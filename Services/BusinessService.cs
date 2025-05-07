@@ -55,7 +55,7 @@ namespace BookingService.Services
         }
 
         /// <summary>
-        /// Retrieves a business by its ID along with related data (address, settings, images, schedule, employees, and services).
+        /// Retrieves a business by its ID along with related data (address, settings, registration data).
         /// </summary>
         /// <param name="businessId">The ID of the business to retrieve.</param>
         /// <returns>
@@ -74,10 +74,7 @@ namespace BookingService.Services
             {
                 IncludeAddress = true,
                 IncludeSettings = true,
-                IncludeImages = true,
-                IncludeSchedule = true,
-                IncludeEmployees = true,
-                IncludeServices = true,
+                IncludeRegistration = true,
             };
 
             var business = await _businessRepository.GetByIdAsync(businessId, spec);
@@ -101,7 +98,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating success or failure.
         /// </returns>
-        public async Task<ServiceResult> UpdateBusinessAsync(int businessId, BusinessUpdateDto dto)
+        public async Task<ServiceResult> UpdateBusinessAsync(int businessId, PatchBusinessDto dto)
         {
 
             if (businessId < 0)
@@ -154,7 +151,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating success or failure.
         /// </returns>
-        public async Task<ServiceResult> UpdateRegistrationDataAsync(int businessId, BusinessRegistrationDataUpdateDto dto)
+        public async Task<ServiceResult> UpdateRegistrationDataAsync(int businessId, PatchBusinessRegistrationDataDto dto)
         {
             var spec = new BusinessSpecifications
             {
@@ -202,7 +199,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating the outcome of the operation.
         /// </returns>
-        public async Task<ServiceResult> UpdateAddressAsync(int businessId, AddressUpdateDto dto)
+        public async Task<ServiceResult> UpdateAddressAsync(int businessId, UpdateAddressDto dto)
         {
             var spec = new BusinessSpecifications
             {
@@ -236,7 +233,7 @@ namespace BookingService.Services
         /// <param name="businessId">The ID of the business.</param>
         /// <param name="dto">Settings data to apply.</param>
         /// <returns>A <see cref="ServiceResult"/> indicating success or failure.</returns>
-        public async Task<ServiceResult> UpdateSettingsAsync(int businessId, BusinessSettingsUpdateDto dto)
+        public async Task<ServiceResult> UpdateSettingsAsync(int businessId, PatchBusinessSettingsDto dto)
         {
             var spec = new BusinessSpecifications
             {

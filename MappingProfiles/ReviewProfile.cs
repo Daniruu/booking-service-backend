@@ -8,7 +8,7 @@ namespace BookingService.MappingProfiles
     {
         public ReviewProfile()
         {
-            CreateMap<ReviewCreateDto, Review>()
+            CreateMap<CreateReviewDto, Review>()
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTimeOffset.UtcNow));
 

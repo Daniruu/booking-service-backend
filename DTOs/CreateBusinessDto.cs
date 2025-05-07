@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookingService.DTOs
 {
-    public class RegisterBusinessDto
+    public class CreateBusinessDto
     {
         [Required, MaxLength(100)]
         public string Name { get; set; }

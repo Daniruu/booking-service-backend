@@ -1,6 +1,6 @@
 ﻿namespace BookingService.DTOs
 {
-    public class ServicePatchDto
+    public class PatchServiceDto
     {
         public bool? IsFeatured { get; set; }
     }

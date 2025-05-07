@@ -146,7 +146,7 @@ namespace BookingService.Controllers
         /// </returns>
         [HttpPost]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> CreateBookings([FromBody] List<BookingCreateDto> dtos)
+        public async Task<IActionResult> CreateBookings([FromBody] List<CreateBookingDto> dtos)
         {
             if (!ModelState.IsValid || dtos == null || !dtos.Any())
             {
@@ -190,7 +190,7 @@ namespace BookingService.Controllers
         /// 404 Not Found if the booking does not exist.
         /// </returns>
         [HttpPatch("{bookingId}/status")]
-        public async Task<IActionResult> UpdateBookingStatus(int bookingId, [FromBody] BookingStatusUpdateDto dto)
+        public async Task<IActionResult> UpdateBookingStatus(int bookingId, [FromBody] PatchBookingStatusDto dto)
         {
             if (!ModelState.IsValid)
             {

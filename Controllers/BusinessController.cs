@@ -52,7 +52,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { businessDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -77,7 +77,7 @@ namespace BookingService.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Business or category not found</response>
         [HttpPatch("me")]
-        public async Task<IActionResult> UpdateBusiness([FromBody] BusinessUpdateDto dto)
+        public async Task<IActionResult> UpdateBusiness([FromBody] PatchBusinessDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -129,7 +129,7 @@ namespace BookingService.Controllers
         /// <response code="401">User not authenticated</response>
         /// <response code="404">Business not found</response>
         [HttpPatch("me/registration-data")]
-        public async Task<IActionResult> UpdateBusinessRegistrationData([FromBody] BusinessRegistrationDataUpdateDto dto)
+        public async Task<IActionResult> UpdateBusinessRegistrationData([FromBody] PatchBusinessRegistrationDataDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -181,7 +181,7 @@ namespace BookingService.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Business not found</response>
         [HttpPatch("me/address")]
-        public async Task<IActionResult> UpdateBusinessAddress([FromBody] AddressUpdateDto dto)
+        public async Task<IActionResult> UpdateBusinessAddress([FromBody] UpdateAddressDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -228,7 +228,7 @@ namespace BookingService.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Business not found</response>
         [HttpPatch("me/settings")]
-        public async Task<IActionResult> UpdateBusinessSettings([FromBody] BusinessSettingsUpdateDto dto)
+        public async Task<IActionResult> UpdateBusinessSettings([FromBody] PatchBusinessSettingsDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -295,7 +295,7 @@ namespace BookingService.Controllers
                 return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
             }
 
-            return Ok(result.Data);
+            return Ok(new { businessListDto = result.Data });
         }
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace BookingService.Controllers
                 return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
             }
 
-            return Ok(result.Data);
+            return Ok(new { businessPublicDetailsDto = result.Data });
         }
     }
 }

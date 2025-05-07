@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class UserUpdateDto
+    public class PatchUserDto
     {
         [MaxLength(50)]
         public string? Name { get; set; }

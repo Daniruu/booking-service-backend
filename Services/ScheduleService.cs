@@ -31,7 +31,7 @@ namespace BookingService.Services
         /// <summary>
         /// Gets the current weekly schedule for the business.
         /// </summary>
-        public async Task<ServiceResult<List<DayScheduleDto>>> GetBusinessScheduleAsync(int businessId)
+        public async Task<ServiceResult<IEnumerable<DayScheduleDto>>> GetBusinessScheduleAsync(int businessId)
         {
             var spec = new BusinessSpecifications
             {
@@ -42,17 +42,17 @@ namespace BookingService.Services
             if (business == null)
             {
                 _logger.LogWarning("Business {BusinessId} not found while retrieving schedule.", businessId);
-                return ServiceResult<List<DayScheduleDto>>.Failure("Business not found.", 404);
+                return ServiceResult<IEnumerable<DayScheduleDto>>.Failure("Business not found.", 404);
             }
 
             var schedule = _mapper.Map<List<DayScheduleDto>>(business.Schedule.OrderBy(d => (int)d.Day));
-            return ServiceResult<List<DayScheduleDto>>.SuccessResult(schedule);
+            return ServiceResult<IEnumerable<DayScheduleDto>>.SuccessResult(schedule);
         }
 
         /// <summary>
         /// Replaces the entire weekly schedule for the business with the provided time slots.
         /// </summary>
-        public async Task<ServiceResult> UpdateBusinessScheduleAsync(int businessId, List<DayScheduleUpdateDto> scheduleDto)
+        public async Task<ServiceResult> UpdateBusinessScheduleAsync(int businessId, List<UpdateDayScheduleDto> scheduleDto)
         {
             var business = await _businessRepository.GetByIdAsync(businessId, new BusinessSpecifications
             {
@@ -95,7 +95,7 @@ namespace BookingService.Services
         /// <summary>
         /// Gets the current weekly schedule for the employee.
         /// </summary>
-        public async Task<ServiceResult<List<DayScheduleDto>>> GetEmployeeScheduleAsync(int employeeId, int businessId)
+        public async Task<ServiceResult<IEnumerable<DayScheduleDto>>> GetEmployeeScheduleAsync(int employeeId, int businessId)
         {
             var spec = new BusinessSpecifications
             {
@@ -107,24 +107,24 @@ namespace BookingService.Services
             if (business == null)
             {
                 _logger.LogWarning("Business {BusinessId} not found while retrieving employee schedule.", businessId);
-                return ServiceResult<List<DayScheduleDto>>.Failure("Business not found.", 404);
+                return ServiceResult<IEnumerable<DayScheduleDto>>.Failure("Business not found.", 404);
             }
 
             var employee = business.Employees.FirstOrDefault(e => e.Id == employeeId);
             if (employee == null)
             {
                 _logger.LogWarning("Employee {EmployeeId} not found while retrieving employee schedule.", employeeId);
-                return ServiceResult<List<DayScheduleDto>>.Failure("Employee not found.", 404);
+                return ServiceResult<IEnumerable<DayScheduleDto>>.Failure("Employee not found.", 404);
             }
 
             var schedule = _mapper.Map<List<DayScheduleDto>>(employee.Schedule.OrderBy(d => (int)d.Day));
-            return ServiceResult<List<DayScheduleDto>>.SuccessResult(schedule);
+            return ServiceResult<IEnumerable<DayScheduleDto>>.SuccessResult(schedule);
         }
 
         /// <summary>
         /// Replaces the entrire weekly schedule for employee with the provided time slots.
         /// </summary>
-        public async Task<ServiceResult> UpdateEmployeeScheduleAsync(int employeeId, int businessId, List<DayScheduleUpdateDto> scheduleDto)
+        public async Task<ServiceResult> UpdateEmployeeScheduleAsync(int employeeId, int businessId, List<UpdateDayScheduleDto> scheduleDto)
         {
             var business = await _businessRepository.GetByIdAsync(businessId, new BusinessSpecifications
             {

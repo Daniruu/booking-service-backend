@@ -10,26 +10,47 @@ namespace BookingService.Services
     public class BusinessImageService : IBusinessImageService
     {
         private readonly IBusinessRepository _businessRepository;
+        private readonly IBusinessImageRepository _businessImageRepository;
         private readonly IGoogleCloudStorageService _googleCloudStorageService;
         private readonly IMapper _mapper;
         private readonly ILogger<BusinessImageService> _logger;
 
         public BusinessImageService(
             IBusinessRepository businessRepository, 
+            IBusinessImageRepository businessImageRepository,
             IGoogleCloudStorageService googleCloudStorageService, 
             IMapper mapper, 
             ILogger<BusinessImageService> logger)
         {
             _businessRepository = businessRepository;
+            _businessImageRepository = businessImageRepository;
             _googleCloudStorageService = googleCloudStorageService;
             _mapper = mapper;
             _logger = logger;
         }
 
         /// <summary>
+        /// Retrieve images for specified business.
+        /// </summary>
+        /// <param name="businessId">Business ID.</param>
+        /// <returns>Collection of business images or an error.</returns>
+        public async Task<ServiceResult<IEnumerable<BusinessImageDto>>> GetImagesAsync(int businessId)
+        {
+            if (businessId < 0)
+            {
+                return ServiceResult<IEnumerable<BusinessImageDto>>.Failure("Invalid business ID recieved.", 400);
+            }
+
+            var businessImages = await _businessImageRepository.GetByBusinessIdAsync(businessId);
+            var businessImageDtos = _mapper.Map<List<BusinessImageDto>>(businessImages);
+
+            return ServiceResult<IEnumerable<BusinessImageDto>>.SuccessResult(businessImageDtos);
+        }
+
+        /// <summary>
         /// Uploads an image to the cloud and adds it to the business gallery.
         /// </summary>
-        public async Task<ServiceResult<BusinessImageDto>> UploadImageAsync(int businessId, BusinessImageUploadDto dto)
+        public async Task<ServiceResult<BusinessImageDto>> UploadImageAsync(int businessId, CreateBusinessImageDto dto)
         {
             var business = await _businessRepository.GetByIdAsync(businessId, new BusinessSpecifications
             {

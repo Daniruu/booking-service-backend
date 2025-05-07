@@ -70,7 +70,7 @@ namespace BookingService.Controllers
         /// 500 Internal Server Error if creation fails.
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> AddService([FromBody] ServiceCreateDto dto)
+        public async Task<IActionResult> AddService([FromBody] CreateServiceDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -149,7 +149,7 @@ namespace BookingService.Controllers
         /// 404 Not Found if the service does not exist or does not belong to the business.
         /// </returns>
         [HttpPut("{serviceId}")]
-        public async Task<IActionResult> UpdateService(int serviceId, [FromBody] ServiceUpdateDto dto)
+        public async Task<IActionResult> UpdateService(int serviceId, [FromBody] UpdateServiceDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -192,7 +192,7 @@ namespace BookingService.Controllers
         /// 404 Not Found if the service does not exist or does not belong to the business.
         /// </returns>
         [HttpPatch("{serviceId}/order")]
-        public async Task<IActionResult> ReorderService(int serviceId, [FromBody] ServiceReorderDto dto)
+        public async Task<IActionResult> ReorderService(int serviceId, [FromBody] ReorderServiceDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -235,7 +235,7 @@ namespace BookingService.Controllers
         /// 404 Not Found if the service does not exist or does not belong to the business.
         /// </returns>
         [HttpPatch("{serviceId}")]
-        public async Task<IActionResult> PatchService(int serviceId, [FromBody] ServicePatchDto dto)
+        public async Task<IActionResult> PatchService(int serviceId, [FromBody] PatchServiceDto dto)
         {
             if (!ModelState.IsValid)
             {

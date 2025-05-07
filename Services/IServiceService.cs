@@ -26,7 +26,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> with the newly created service;
         /// or 404 if the business does not exist.
         /// </returns>
-        Task<ServiceResult<ServiceDto>> AddServiceAsync(int businessId, ServiceCreateDto dto);
+        Task<ServiceResult<ServiceDto>> AddServiceAsync(int businessId, CreateServiceDto dto);
 
         /// <summary>
         /// Deletes a service that belongs to the specified business.
@@ -52,7 +52,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> containing the updated service;
         /// or 404/403 if the service is not found or doesn't belong to the business.
         /// </returns>
-        Task<ServiceResult<ServiceDto>> UpdateServiceAsync(int serviceId, int businessId, ServiceUpdateDto dto);
+        Task<ServiceResult<ServiceDto>> UpdateServiceAsync(int serviceId, int businessId, UpdateServiceDto dto);
 
         /// <summary>
         /// Changes the order of a service within its group, or moves it to another group if needed.
@@ -67,7 +67,7 @@ namespace BookingService.Services
         /// 403 if the service does not belong to the business;
         /// 404 if the service is not found.
         /// </returns>
-        Task<ServiceResult<UpdatedServiceGroupDto>> ReorderServiceAsync(int serviceId, int businessId, ServiceReorderDto dto);
+        Task<ServiceResult<ServiceGroupUpdatedDto>> ReorderServiceAsync(int serviceId, int businessId, ReorderServiceDto dto);
 
         /// <summary>
         /// Applies partial updates to a service, such as toggling the featured flag.
@@ -79,6 +79,6 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> containing the updated service;
         /// or 404/403 if the service is not found or does not belong to the business.
         /// </returns>
-        Task<ServiceResult<ServiceDto>> PatchServiceAsync(int serviceId, int businessId, ServicePatchDto dto);
+        Task<ServiceResult<ServiceDto>> PatchServiceAsync(int serviceId, int businessId, PatchServiceDto dto);
     }
 }

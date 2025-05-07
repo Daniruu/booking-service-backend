@@ -23,6 +23,24 @@ namespace BookingService.Services
         }
 
         /// <summary>
+        /// Retrieves service groups belonging to the specified business.
+        /// </summary>
+        /// <param name="businessId">he ID of the business that owns the service groups.</param>
+        /// <returns>Collection of service groups dtos or an error.</returns>
+        public async Task<ServiceResult<IEnumerable<ServiceGroupDto>>> GetAllByBusinessIdAsync(int businessId)
+        {
+            if (businessId < 0)
+            {
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("Ivalid business ID recieved.", 400);
+            }
+
+            var serviceGroups = await _serviceGroupRepository.GetAllByBusinessIdAsync(businessId);
+            var serviceGroupDtos = _mapper.Map<List<ServiceGroupDto>>(serviceGroups);
+
+            return ServiceResult<IEnumerable<ServiceGroupDto>>.SuccessResult(serviceGroupDtos);
+        }
+
+        /// <summary>
         /// Retrieves a specific service group belonging to the specified business.
         /// </summary>
         /// <param name="groupId">The ID of the service group to retrieve.</param>
@@ -74,7 +92,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceGroupDto}"/> containing the created group;
         /// or an error if the business ID is invalid.
         /// </returns>
-        public async Task<ServiceResult<ServiceGroupDto>> AddServiceGroupAsync(int businessId, ServiceGroupCreateDto dto)
+        public async Task<ServiceResult<ServiceGroupDto>> AddServiceGroupAsync(int businessId, CreateServiceGroupDto dto)
         {
             if (businessId < 0)
             {
@@ -172,7 +190,7 @@ namespace BookingService.Services
         /// 404 if business or group not found;
         /// 405 if group is system-defined.
         /// </returns>
-        public async Task<ServiceResult<ServiceGroupDto>> UpdateServiceGroupAsync(int groupId, int businessId, ServiceGroupUpdateDto dto)
+        public async Task<ServiceResult<ServiceGroupDto>> UpdateServiceGroupAsync(int groupId, int businessId, PatchServiceGroupDto dto)
         {
             if (groupId < 0 || businessId < 0)
             {
@@ -227,12 +245,12 @@ namespace BookingService.Services
         /// 404 if the business or group doesn't exist;
         /// 405 if the group is marked as system and can't be moved.
         /// </returns>
-        public async Task<ServiceResult<List<ServiceGroupDto>>> ReorderServiceGroupAsync(int groupId, int businessId, ServiceGroupReorderDto dto)
+        public async Task<ServiceResult<IEnumerable<ServiceGroupDto>>> ReorderServiceGroupAsync(int groupId, int businessId, ReorderServiceGroupDto dto)
         {
             if (groupId < 0 || businessId < 0)
             {
                 _logger.LogWarning("Invalid service group or business ID received. ServiceGroupId: {GroupId} BusinessId: {BusinessId}", groupId, businessId);
-                return ServiceResult<List<ServiceGroupDto>>.Failure("Invalid service group or business ID.", 400);
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("Invalid service group or business ID.", 400);
             }
 
             var business = await _businessRepository.GetByIdAsync(businessId, new BusinessSpecifications
@@ -243,26 +261,26 @@ namespace BookingService.Services
             if (business == null)
             {
                 _logger.LogWarning("Business {BusinessId} not found while updating service group order.", businessId);
-                return ServiceResult<List<ServiceGroupDto>>.Failure("Business not found.", 404);
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("Business not found.", 404);
             }
 
             if (business.ServiceGroups == null || !business.ServiceGroups.Any())
             {
                 _logger.LogWarning("Business {BusinessId} has no service groups while attempting to reorder group {GroupId}.", businessId, groupId);
-                return ServiceResult<List<ServiceGroupDto>>.Failure("No service groups found for this business.", 404);
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("No service groups found for this business.", 404);
             }
 
             var groupToMove = business.ServiceGroups.FirstOrDefault(sg => sg.Id == groupId);
             if (groupToMove == null)
             {
                 _logger.LogWarning("Service group {GroupId} not found while updating service group order.", groupId);
-                return ServiceResult<List<ServiceGroupDto>>.Failure("Service group not found.", 404);
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("Service group not found.", 404);
             }
 
             if (groupToMove.IsSystem)
             {
                 _logger.LogWarning("Failed to reorder service group {GroupId}, system service groups cannot be updated.", groupId);
-                return ServiceResult<List<ServiceGroupDto>>.Failure("System service groups cannot be updated.", 405);
+                return ServiceResult<IEnumerable<ServiceGroupDto>>.Failure("System service groups cannot be updated.", 405);
             }
 
             var systemGroups = business.ServiceGroups.Where(sg => sg.IsSystem).OrderBy(sg => sg.Order).ToList();
@@ -295,10 +313,10 @@ namespace BookingService.Services
             var allGroupsSorted = business.ServiceGroups.OrderBy(sg => sg.Order).ToList();
             allGroupsSorted.ForEach(g => g.Services = g.Services.OrderBy(s => s.Order).ToList());
 
-            var updatedServiceGroupsDto = _mapper.Map<List<ServiceGroupDto>>(allGroupsSorted);
+            var updatedServiceGroupsDto = _mapper.Map<IEnumerable<ServiceGroupDto>>(allGroupsSorted);
 
             _logger.LogInformation("Service group {GroupId} reordered successfully.", groupId);
-            return ServiceResult<List<ServiceGroupDto>>.SuccessResult(updatedServiceGroupsDto);
+            return ServiceResult<IEnumerable<ServiceGroupDto>>.SuccessResult(updatedServiceGroupsDto);
         }
     }
 }

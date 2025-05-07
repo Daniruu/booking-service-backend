@@ -13,9 +13,5 @@ namespace BookingService.DTOs
         public BusinessRegistrationData RegistrationData { get; set; }
         public Address Address { get; set; }
         public BusinessSettings Settings { get; set; }
-        public List<DayScheduleDto> Schedule { get; set; }
-        public List<BusinessImageDto> Images { get; set; }
-        public List<EmployeeDto> Employees { get; set; }
-        public List<ServiceGroupDto> ServiceGroups { get; set; }
     }
 }

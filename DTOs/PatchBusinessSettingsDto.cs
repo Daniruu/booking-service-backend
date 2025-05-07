@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class BusinessSettingsUpdateDto
+    public class PatchBusinessSettingsDto
     {
         public bool? AutoConfirmBookings { get; set; }
 

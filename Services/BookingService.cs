@@ -183,7 +183,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{List{UserBookingDto}}"/> with successfully created bookings;
         /// or an error if the input is invalid or time slots are unavailable.
         /// </returns>
-        public async Task<ServiceResult<List<UserBookingDto>>> CreateBookingsAsync(int userId, List<BookingCreateDto> dtos)
+        public async Task<ServiceResult<List<UserBookingDto>>> CreateBookingsAsync(int userId, List<CreateBookingDto> dtos)
         {
             if (userId < 0)
             {

@@ -49,7 +49,7 @@ namespace BookingService.Services
         /// </summary>
         /// <param name="dto">Data required to register a user, including email, password, phone number, and confirmation code.</param>
         /// <returns>ID of the newly created user or an error.</returns>
-        public async Task<ServiceResult<int>> RegisterUserAsync(RegisterUserDto dto)
+        public async Task<ServiceResult<int>> RegisterUserAsync(CreateUserDto dto)
         {
             _logger.LogInformation("Attempting to register user: {Email}", dto.Email);
 
@@ -83,7 +83,7 @@ namespace BookingService.Services
         /// </summary>
         /// <param name="dto">Data required to register a business, including category ID, email, password, and confirmation code.</param>
         /// <returns>ID of the newly created business or an error.</returns>
-        public async Task<ServiceResult<int>> RegisterBusinessAsync(RegisterBusinessDto dto)
+        public async Task<ServiceResult<int>> RegisterBusinessAsync(CreateBusinessDto dto)
         {
             _logger.LogInformation("Attempting to register business: {Email}, CategoryId: {CategoryId}", dto.Email, dto.CategoryId);
 

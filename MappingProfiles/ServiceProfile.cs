@@ -9,12 +9,12 @@ namespace BookingService.MappingProfiles
         public ServiceProfile()
         {
             CreateMap<Service, ServiceDto>();
-            CreateMap<ServiceCreateDto, Service>();
-            CreateMap<ServiceUpdateDto, Service>();
+            CreateMap<CreateServiceDto, Service>();
+            CreateMap<UpdateServiceDto, Service>();
 
             CreateMap<ServiceGroup, ServiceGroupDto>();
-            CreateMap<ServiceGroupCreateDto, ServiceGroup>();
-            CreateMap<ServiceGroupUpdateDto, ServiceGroup>();
+            CreateMap<CreateServiceGroupDto, ServiceGroup>();
+            CreateMap<PatchServiceGroupDto, ServiceGroup>();
         }
     }
 }

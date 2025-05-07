@@ -25,6 +25,34 @@ namespace BookingService.Controllers
         }
 
         /// <summary>
+        /// Retrieves service group list.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> GetServiceGroups()
+        {
+            try
+            {
+                var businessId = User.GetUserId();
+
+                _logger.LogInformation("Retrieving service groups for business: {BusinessId}", businessId);
+                var result = await _serviceGroupService.GetAllByBusinessIdAsync(businessId);
+
+                if (!result.Success)
+                {
+                    _logger.LogWarning("Failed to retrieve service groups: {Reason}", result.ErrorMessage);
+                    return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+                }
+
+                return Ok(new { serviceGroupDtos = result.Data });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogError(ex, "Unauthorized access attempt.");
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Retrieves service group data by ID.
         /// </summary>
         /// <param name="groupId">Service group ID.</param>
@@ -49,7 +77,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { serviceGroupDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -68,7 +96,7 @@ namespace BookingService.Controllers
         /// 401 Unauthorized if not authenticated.
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> AddServiceGroup([FromBody] ServiceGroupCreateDto dto)
+        public async Task<IActionResult> AddServiceGroup([FromBody] CreateServiceGroupDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -146,7 +174,7 @@ namespace BookingService.Controllers
         /// 405 if trying to update a system group.
         /// </returns>
         [HttpPatch("{groupId}")]
-        public async Task<IActionResult> UpdateServiceGroup(int groupId, [FromBody] ServiceGroupUpdateDto dto)
+        public async Task<IActionResult> UpdateServiceGroup(int groupId, [FromBody] PatchServiceGroupDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -167,7 +195,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { serviceGroupDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -189,7 +217,7 @@ namespace BookingService.Controllers
         /// 405 if the group is marked as system and can't be moved;
         /// </returns>
         [HttpPatch("{groupId}/order")]
-        public async Task<IActionResult> UpdateServiceGroupOrder(int groupId, [FromBody] ServiceGroupReorderDto dto)
+        public async Task<IActionResult> UpdateServiceGroupOrder(int groupId, [FromBody] ReorderServiceGroupDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -210,7 +238,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { serviceGroupDtos = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {

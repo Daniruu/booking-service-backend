@@ -33,7 +33,7 @@ namespace BookingService.Controllers
         /// <param name="dto">Email address for which the recovery code should be sent.</param>
         /// <returns>Expiration time of the generated code or an error message.</returns>
         [HttpPost]
-        public async Task<IActionResult> RequestRecoveryCode([FromBody] PasswordRecoveryRequestDto dto)
+        public async Task<IActionResult> RequestRecoveryCode([FromBody] RequestEmailCodeDto dto)
         {
             if (!ModelState.IsValid)
             {

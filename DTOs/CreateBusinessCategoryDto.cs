@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class BusinessCategoryCreateDto
+    public class CreateBusinessCategoryDto
     {
         [Required]
         public string Name { get; set; }

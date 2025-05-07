@@ -9,8 +9,8 @@ namespace BookingService.MappingProfiles
         public EmployeeProfile()
         {
             CreateMap<Employee, EmployeeDto>();
-            CreateMap<EmployeeCreateDto, Employee>();
-            CreateMap<EmployeeUpdateDto, Employee>();
+            CreateMap<CreateEmployeeDto, Employee>();
+            CreateMap<UpdateEmployeeDto, Employee>();
             CreateMap<Employee, EmployeePublicDto>();
         }
     }

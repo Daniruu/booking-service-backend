@@ -58,7 +58,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{List{UserBookingDto}}"/> with successfully created bookings;
         /// or an error if the input is invalid or time slots are unavailable.
         /// </returns>
-        Task<ServiceResult<List<UserBookingDto>>> CreateBookingsAsync(int userId, List<BookingCreateDto> dtos);
+        Task<ServiceResult<List<UserBookingDto>>> CreateBookingsAsync(int userId, List<CreateBookingDto> dtos);
 
         /// <summary>
         /// Updates the status of a booking (e.g., confirm or reject) if it belongs to the given business.

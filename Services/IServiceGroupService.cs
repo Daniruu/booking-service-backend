@@ -6,6 +6,13 @@ namespace BookingService.Services
     public interface IServiceGroupService
     {
         /// <summary>
+        /// Retrieves service groups belonging to the specified business.
+        /// </summary>
+        /// <param name="businessId">he ID of the business that owns the service groups.</param>
+        /// <returns>Collection of service groups dtos or an error.</returns>
+        Task<ServiceResult<IEnumerable<ServiceGroupDto>>> GetAllByBusinessIdAsync(int businessId);
+
+        /// <summary>
         /// Retrieves a specific service group belonging to the specified business.
         /// </summary>
         /// <param name="groupId">The ID of the service group to retrieve.</param>
@@ -28,7 +35,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceGroupDto}"/> containing the created group;
         /// or an error if the business ID is invalid.
         /// </returns>
-        Task<ServiceResult<ServiceGroupDto>> AddServiceGroupAsync(int businessId, ServiceGroupCreateDto dto);
+        Task<ServiceResult<ServiceGroupDto>> AddServiceGroupAsync(int businessId, CreateServiceGroupDto dto);
 
         /// <summary>
         /// Deletes a user-defined service group for the specified business.
@@ -60,7 +67,7 @@ namespace BookingService.Services
         /// 404 if business or group not found;
         /// 405 if group is system-defined.
         /// </returns>
-        Task<ServiceResult<ServiceGroupDto>> UpdateServiceGroupAsync(int groupId, int businessId, ServiceGroupUpdateDto dto);
+        Task<ServiceResult<ServiceGroupDto>> UpdateServiceGroupAsync(int groupId, int businessId, PatchServiceGroupDto dto);
 
         /// <summary>
         /// Reorders a service group within the business-defined service group list.
@@ -76,6 +83,6 @@ namespace BookingService.Services
         /// 404 if the business or group doesn't exist;
         /// 405 if the group is marked as system and can't be moved.
         /// </returns>
-        Task<ServiceResult<List<ServiceGroupDto>>> ReorderServiceGroupAsync(int groupId, int businessId, ServiceGroupReorderDto dto);
+        Task<ServiceResult<IEnumerable<ServiceGroupDto>>> ReorderServiceGroupAsync(int groupId, int businessId, ReorderServiceGroupDto dto);
     }
 }

@@ -79,7 +79,7 @@ namespace BookingService.Controllers
         /// <response code="401">Unauthorized access</response>
         /// <response code="404">User not found</response>
         [HttpPatch("me")]
-        public async Task<IActionResult> UpdateCurrentUser([FromBody] UserUpdateDto dto)
+        public async Task<IActionResult> UpdateCurrentUser([FromBody] PatchUserDto dto)
         {
             if (!ModelState.IsValid)
             {

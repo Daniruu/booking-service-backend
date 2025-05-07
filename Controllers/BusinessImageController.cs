@@ -23,6 +23,31 @@ namespace BookingService.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetBusinessImages()
+        {
+            try
+            {
+                var businessId = User.GetUserId();
+
+                _logger.LogInformation("Retrieving business images for business: {BusinessId}", businessId);
+                var result = await _businessImageService.GetImagesAsync(businessId);
+
+                if (!result.Success)
+                {
+                    _logger.LogWarning("Failed to retrieve business images: {Reason}", result.ErrorMessage);
+                    return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+                }
+
+                return Ok(new { businessImageDtos = result.Data });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogError(ex, "Unauthorized access attempt during image retrieving.");
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
+
         /// <summary>
         /// Uploads a new image to the business gallery.
         /// </summary>
@@ -37,7 +62,7 @@ namespace BookingService.Controllers
         /// <response code="400">Invalid image file</response>
         /// <response code="401">Unauthorized</response>
         [HttpPost]
-        public async Task<IActionResult> Upload([FromForm] BusinessImageUploadDto dto)
+        public async Task<IActionResult> Upload([FromForm] CreateBusinessImageDto dto)
         {
             if (dto.File == null || dto.File.Length == 0)
             {
@@ -73,7 +98,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { businessImageDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {

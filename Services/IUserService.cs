@@ -31,7 +31,7 @@ namespace BookingService.Services
         /// <remarks>
         /// This method does not update other fields such as email, phone, or avatar.
         /// </remarks>
-        Task<ServiceResult> UpdateUserAsync(int userId, UserUpdateDto dto);
+        Task<ServiceResult> UpdateUserAsync(int userId, PatchUserDto dto);
 
         // <summary>
         /// Uploads a new avatar for the specified user. If an existing avatar is present, it will be deleted first.

@@ -10,13 +10,13 @@ namespace BookingService.MappingProfiles
         {
             CreateMap<User, UserDto>();
 
-            CreateMap<RegisterUserDto, User>()
+            CreateMap<CreateUserDto, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
                 .ForMember(dest => dest.RefreshToken, opt => opt.Ignore())
                 .ForMember(dest => dest.RefreshExpiryTime, opt => opt.Ignore())
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => Roles.User));
 
-            CreateMap<UserUpdateDto, User>();
+            CreateMap<PatchUserDto, User>();
         }
     }
 }

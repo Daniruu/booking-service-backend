@@ -32,7 +32,7 @@ namespace BookingService.Controllers
         /// <response code="400">Invalid input or unsupported file.</response>
         /// <response code="500">Server error while creating the category.</response>
         [HttpPost("categories")]
-        public async Task<IActionResult> AddBusinessCategory([FromForm] BusinessCategoryCreateDto dto)
+        public async Task<IActionResult> AddBusinessCategory([FromForm] CreateBusinessCategoryDto dto)
         {
             if (!ModelState.IsValid)
             {

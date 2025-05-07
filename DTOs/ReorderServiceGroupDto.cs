@@ -1,6 +1,6 @@
 ﻿namespace BookingService.DTOs
 {
-    public class ServiceGroupReorderDto
+    public class ReorderServiceGroupDto
     {
         public int NewOrder { get; set; }
     }

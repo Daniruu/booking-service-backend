@@ -2,9 +2,9 @@
 
 namespace BookingService.DTOs
 {
-    public class DayScheduleUpdateDto
+    public class UpdateDayScheduleDto
     {
         public DayOfWeek Day { get; set; }
-        public List<AddTimeSlotDto> TimeSlots { get; set; }
+        public List<CreateTimeSlotDto> TimeSlots { get; set; }
     }
 }

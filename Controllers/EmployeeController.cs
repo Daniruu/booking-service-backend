@@ -25,6 +25,34 @@ namespace BookingService.Controllers
         }
 
         /// <summary>
+        /// Retrieves employee list.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> GetEmployees()
+        {
+            try
+            {
+                var businessId = User.GetUserId();
+
+                _logger.LogInformation("Retrieving employee list for business: {BusinessId}", businessId);
+                var result = await _employeeService.GetByBusinessIdAsync(businessId);
+
+                if (!result.Success)
+                {
+                    _logger.LogWarning("Failed to retrieve employee: {Reason}", result.ErrorMessage);
+                    return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
+                }
+
+                return Ok(new { employeeDtos = result.Data });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogError(ex, "Unauthorized access attempt.");
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Retrieves a specific employee by ID.
         /// </summary>
         [HttpGet("{employeeId}")]
@@ -43,7 +71,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { employeeDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -63,7 +91,7 @@ namespace BookingService.Controllers
         /// 500 Internal Server Error if creation fails.
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> AddEmployee([FromBody] EmployeeCreateDto dto)
+        public async Task<IActionResult> AddEmployee([FromBody] CreateEmployeeDto dto)
         {
             if (!ModelState.IsValid) 
             {
@@ -105,7 +133,7 @@ namespace BookingService.Controllers
         /// 404 Not Found if the employee does not exist.
         /// </returns>
         [HttpPut("{employeeId}")]
-        public async Task<IActionResult> UpdateEmployee(int employeeId, [FromBody] EmployeeUpdateDto dto)
+        public async Task<IActionResult> UpdateEmployee(int employeeId, [FromBody] UpdateEmployeeDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -126,7 +154,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { employeeDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {

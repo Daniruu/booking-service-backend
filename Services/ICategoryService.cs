@@ -5,7 +5,7 @@ namespace BookingService.Services
 {
     public interface ICategoryService
     {
-        Task<ServiceResult<int>> AddBusinessCategoryAsync(BusinessCategoryCreateDto dto);
+        Task<ServiceResult<int>> AddBusinessCategoryAsync(CreateBusinessCategoryDto dto);
         Task<ServiceResult<List<BusinessCategoryDto>>> GetAllCategories();
     }
 }

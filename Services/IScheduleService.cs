@@ -11,21 +11,21 @@ namespace BookingService.Services
         /// <summary>
         /// Gets the current weekly schedule for the business.
         /// </summary>
-        Task<ServiceResult<List<DayScheduleDto>>> GetBusinessScheduleAsync(int businessId);
+        Task<ServiceResult<IEnumerable<DayScheduleDto>>> GetBusinessScheduleAsync(int businessId);
 
         /// <summary>
         /// Replaces the entire weekly schedule for the business with the provided time slots.
         /// </summary>
-        Task<ServiceResult> UpdateBusinessScheduleAsync(int businessId, List<DayScheduleUpdateDto> scheduleDto);
+        Task<ServiceResult> UpdateBusinessScheduleAsync(int businessId, List<UpdateDayScheduleDto> scheduleDto);
 
         /// <summary>
         /// Gets the current weekly schedule for the employee.
         /// </summary>
-        Task<ServiceResult<List<DayScheduleDto>>> GetEmployeeScheduleAsync(int employeeId, int businessId);
+        Task<ServiceResult<IEnumerable<DayScheduleDto>>> GetEmployeeScheduleAsync(int employeeId, int businessId);
 
         /// <summary>
         /// Replaces the entrire weekly schedule for employee with the provided time slots.
         /// </summary>
-        Task<ServiceResult> UpdateEmployeeScheduleAsync(int employeeId, int businessId, List<DayScheduleUpdateDto> scheduleDto);
+        Task<ServiceResult> UpdateEmployeeScheduleAsync(int employeeId, int businessId, List<UpdateDayScheduleDto> scheduleDto);
     }
 }

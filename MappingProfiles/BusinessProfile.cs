@@ -16,19 +16,19 @@ namespace BookingService.MappingProfiles
             CreateMap<Business, BusinessPublicDetailsDto>()
                 .ForMember(dest => dest.AverageRating, opt => opt.MapFrom(src => src.Reviews.Any() ? src.Reviews.Average(r => r.Rating) : 0));
 
-            CreateMap<RegisterBusinessDto, Business>()
+            CreateMap<CreateBusinessDto, Business>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
                 .ForMember(dest => dest.RefreshToken, opt => opt.Ignore())
                 .ForMember(dest => dest.RefreshExpiryTime, opt => opt.Ignore())
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => Roles.Business));
 
-            CreateMap<BusinessUpdateDto, Business>();
+            CreateMap<PatchBusinessDto, Business>();
 
-            CreateMap<AddressUpdateDto, Address>();
+            CreateMap<UpdateAddressDto, Address>();
 
-            CreateMap<BusinessRegistrationDataUpdateDto, BusinessRegistrationData>();
+            CreateMap<PatchBusinessRegistrationDataDto, BusinessRegistrationData>();
 
-            CreateMap<BusinessSettingsUpdateDto, BusinessSettings>();
+            CreateMap<PatchBusinessSettingsDto, BusinessSettings>();
 
             CreateMap<BusinessImage, BusinessImageDto>();
         }

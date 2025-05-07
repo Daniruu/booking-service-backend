@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BookingService.DTOs
 {
-    public class BusinessUpdateDto
+    public class PatchBusinessDto
     {
         [MaxLength(100)]
         public string? Name { get; set; }

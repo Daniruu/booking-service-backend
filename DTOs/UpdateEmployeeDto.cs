@@ -2,8 +2,11 @@
 
 namespace BookingService.DTOs
 {
-    public class RegisterUserDto
+    public class UpdateEmployeeDto
     {
+        [Required]
+        public string Position { get; set; }
+
         [Required, MaxLength(50)]
         public string Name { get; set; }
 
@@ -15,11 +18,5 @@ namespace BookingService.DTOs
 
         [Required, Phone]
         public string Phone { get; set; }
-
-        [Required, MinLength(6)]
-        public string Password { get; set; }
-
-        [Required]
-        public string Code { get; set; }
     }
 }

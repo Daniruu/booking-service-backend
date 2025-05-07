@@ -55,7 +55,7 @@ namespace BookingService.Controllers
         /// <param name="dto">New email address.</param>
         /// <returns>Expiration time of the confirmation code or an error message.</returns>
         [HttpPost("email/code")]
-        public async Task<IActionResult> RequestChangeEmailCode([FromBody] ChangeEmailRequestDto dto)
+        public async Task<IActionResult> RequestChangeEmailCode([FromBody] RequestEmailCodeDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace BookingService.Controllers
             {
                 var userId = User.GetUserId();
 
-                _logger.LogInformation("User {UserId} requested email change to: {NewEmail}", userId, dto.NewEmail);
-                var result = await _accountService.RequestEmailChangeCodeAsync(userId, dto.NewEmail);
+                _logger.LogInformation("User {UserId} requested email change to: {NewEmail}", userId, dto.Email);
+                var result = await _accountService.RequestEmailChangeCodeAsync(userId, dto.Email);
 
                 if (!result.Success)
                 {
@@ -76,7 +76,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                _logger.LogInformation("Email change code sent to {NewEmail} for User {UserId}", dto.NewEmail, userId);
+                _logger.LogInformation("Email change code sent to {NewEmail} for User {UserId}", dto.Email, userId);
                 return Ok(new { expiresAt = result.Data });
             }
             catch (UnauthorizedAccessException ex)

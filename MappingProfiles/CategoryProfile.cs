@@ -8,7 +8,7 @@ namespace BookingService.MappingProfiles
     {
         public CategoryProfile()
         {
-            CreateMap<BusinessCategoryCreateDto, BusinessCategory>()
+            CreateMap<CreateBusinessCategoryDto, BusinessCategory>()
                 .ForMember(dest => dest.IconUrl, opt => opt.Ignore());
 
             CreateMap<BusinessCategory, BusinessCategoryDto>();

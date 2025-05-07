@@ -1,6 +1,6 @@
 ﻿namespace BookingService.DTOs
 {
-    public class UpdatedServiceGroupDto
+    public class ServiceGroupUpdatedDto
     {
         public bool IsGroupChanged { get; set; }
         public List<ServiceDto> OldGroupServices { get; set; }

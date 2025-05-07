@@ -2,9 +2,9 @@
 
 namespace BookingService.DTOs
 {
-    public class ChangeEmailRequestDto
+    public class RequestEmailCodeDto
     {
         [Required, EmailAddress]
-        public string NewEmail { get; set; }
+        public string Email { get; set; }
     }
 }

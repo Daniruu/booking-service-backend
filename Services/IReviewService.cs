@@ -16,6 +16,6 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ReviewDto}"/> containing the newly created review;
         /// or an error with appropriate status code and message.
         /// </returns>
-        Task<ServiceResult<ReviewDto>> CreateReviewAsync(int businessId, int userId, ReviewCreateDto reviewDto);
+        Task<ServiceResult<ReviewDto>> CreateReviewAsync(int businessId, int userId, CreateReviewDto reviewDto);
     }
 }

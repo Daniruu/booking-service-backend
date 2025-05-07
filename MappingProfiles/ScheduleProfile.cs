@@ -8,10 +8,10 @@ namespace BookingService.MappingProfiles
     {
         public ScheduleProfile()
         {
-            CreateMap<DayScheduleUpdateDto, DaySchedule>();
+            CreateMap<UpdateDayScheduleDto, DaySchedule>();
             CreateMap<DaySchedule, DayScheduleDto>();
 
-            CreateMap<AddTimeSlotDto, TimeSlot>();
+            CreateMap<CreateTimeSlotDto, TimeSlot>();
             CreateMap<TimeSlot, TimeSlotDto>();
         }
     }

@@ -50,7 +50,7 @@ namespace BookingService.Controllers
                     return StatusCode(result.StatusCode, new { message = result.ErrorMessage });
                 }
 
-                return Ok(result.Data);
+                return Ok(new { scheduleDto = result.Data });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -75,7 +75,7 @@ namespace BookingService.Controllers
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Business not found</response>
         [HttpPut]
-        public async Task<IActionResult> UpdateBusinessSchedule([FromBody] List<DayScheduleUpdateDto> schedule)
+        public async Task<IActionResult> UpdateBusinessSchedule([FromBody] List<UpdateDayScheduleDto> schedule)
         {
             if (!ModelState.IsValid)
             {

@@ -14,13 +14,13 @@ namespace BookingService.Services
         /// </summary>
         /// <param name="dto">Data required to register a user, including email, password, phone number, and confirmation code.</param>
         /// <returns>ID of the newly created user or an error.</returns>
-        Task<ServiceResult<int>> RegisterUserAsync(RegisterUserDto dto);
+        Task<ServiceResult<int>> RegisterUserAsync(CreateUserDto dto);
 
         /// <summary>
         /// Registers a new business account after verifying email, confirmation code, and business category.
         /// </summary>
         /// <param name="dto">Data required to register a business, including category ID, email, password, and confirmation code.</param>
         /// <returns>ID of the newly created business or an error.</returns>
-        Task<ServiceResult<int>> RegisterBusinessAsync(RegisterBusinessDto dto);
+        Task<ServiceResult<int>> RegisterBusinessAsync(CreateBusinessDto dto);
     }
 }

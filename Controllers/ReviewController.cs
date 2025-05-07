@@ -36,7 +36,7 @@ namespace BookingService.Controllers
         /// </returns>
         [HttpPost("{businessId}")]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> CreateReview(int businessId, [FromForm] ReviewCreateDto reviewDto)
+        public async Task<IActionResult> CreateReview(int businessId, [FromForm] CreateReviewDto reviewDto)
         {
             if (!ModelState.IsValid)
             {

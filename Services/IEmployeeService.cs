@@ -10,6 +10,13 @@ namespace BookingService.Services
     public interface IEmployeeService
     {
         /// <summary>
+        /// Retrieve employee list by business ID
+        /// </summary>
+        /// <param name="businessId">The Id of the business.</param>
+        /// <returns>A service result with collection of employee data or an error.</returns>
+        Task<ServiceResult<IEnumerable<EmployeeDto>>> GetByBusinessIdAsync(int businessId);
+
+        /// <summary>
         /// Retrieve an employee by ID.
         /// </summary>
         /// <param name="businessId">The ID of the current authenticated business.</param>
@@ -23,7 +30,7 @@ namespace BookingService.Services
         /// <param name="businessId">The ID of the current authenticated business.</param>
         /// <param name="dto">The data for the new employee.</param>
         /// <returns>A service result with the created employee DTO or an error.</returns>
-        Task<ServiceResult<EmployeeDto>> AddEmployeeAsync(int businessId, EmployeeCreateDto dto);
+        Task<ServiceResult<EmployeeDto>> AddEmployeeAsync(int businessId, CreateEmployeeDto dto);
 
         /// <summary>
         /// Updates an existing employee.
@@ -32,7 +39,7 @@ namespace BookingService.Services
         /// <param name="businessId">The ID of the current authenticated business.</param>
         /// <param name="dto">Updated employee data.</param>
         /// <returns>A service result with the updated employee DTO or an error.</returns>
-        Task<ServiceResult<EmployeeDto>> UpdateEmployeeAsync(int employeeId, int businessId, EmployeeUpdateDto dto);
+        Task<ServiceResult<EmployeeDto>> UpdateEmployeeAsync(int employeeId, int businessId, UpdateEmployeeDto dto);
 
         /// <summary>
         /// Deletes an employee by ID.

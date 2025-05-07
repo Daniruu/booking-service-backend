@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class BusinessImageUploadDto
+    public class CreateBusinessImageDto
     {
         [Required]
         public IFormFile File { get; set; }

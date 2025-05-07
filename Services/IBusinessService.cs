@@ -24,7 +24,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating success or failure.
         /// </returns>
-        Task<ServiceResult> UpdateBusinessAsync(int businessId, BusinessUpdateDto dto);
+        Task<ServiceResult> UpdateBusinessAsync(int businessId, PatchBusinessDto dto);
 
         /// <summary>
         /// Updates the registration data (NIP, REGON, KRS) for the specified business.
@@ -34,7 +34,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating success or failure.
         /// </returns>
-        Task<ServiceResult> UpdateRegistrationDataAsync(int businessId, BusinessRegistrationDataUpdateDto dto);
+        Task<ServiceResult> UpdateRegistrationDataAsync(int businessId, PatchBusinessRegistrationDataDto dto);
 
         /// <summary>
         /// Updates the address for the specified business.
@@ -44,7 +44,7 @@ namespace BookingService.Services
         /// <returns>
         /// A <see cref="ServiceResult"/> indicating the outcome of the operation.
         /// </returns>
-        Task<ServiceResult> UpdateAddressAsync(int businessId, AddressUpdateDto dto);
+        Task<ServiceResult> UpdateAddressAsync(int businessId, UpdateAddressDto dto);
 
         /// <summary>
         /// Updates booking-related settings for the specified business,
@@ -53,7 +53,7 @@ namespace BookingService.Services
         /// <param name="businessId">The ID of the business.</param>
         /// <param name="dto">Settings data to apply.</param>
         /// <returns>A <see cref="ServiceResult"/> indicating success or failure.</returns>
-        Task<ServiceResult> UpdateSettingsAsync(int businessId, BusinessSettingsUpdateDto dto);
+        Task<ServiceResult> UpdateSettingsAsync(int businessId, PatchBusinessSettingsDto dto);
 
         /// <summary>
         /// Retrieves a paginated list of published businesses based on the provided filters and pagination settings.

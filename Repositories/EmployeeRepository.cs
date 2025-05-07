@@ -20,6 +20,13 @@ namespace BookingService.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Employee>> GetAllByBusinessIdAsync(int businessId)
+        {
+            return await _context.Employees
+                .Where(e => e.BusinessId == businessId)
+                .ToListAsync();
+        }
+
         public async Task<Employee> GetByIdAsync(int id, EmployeeSpecifications? spec = null)
         {
             IQueryable<Employee> query = _context.Employees;

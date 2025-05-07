@@ -13,7 +13,7 @@ namespace BookingService.DTOs
         public BookingStatus Status { get; set; }
         public string ServiceName { get; set; }
         public string EmployeeName { get; set; }
-        public string EmployeeAvatar { get; set; }
+        public string? EmployeeAvatar { get; set; }
         public int BusinessId { get; set; }
         public string BusinessName { get; set; }
         public string BusinessImage { get; set; }

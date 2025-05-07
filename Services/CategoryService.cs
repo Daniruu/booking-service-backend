@@ -29,7 +29,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{int}"/> containing the ID of the newly created category;
         /// or an error with appropriate status code if the operation fails.
         /// </returns>
-        public async Task<ServiceResult<int>> AddBusinessCategoryAsync(BusinessCategoryCreateDto dto)
+        public async Task<ServiceResult<int>> AddBusinessCategoryAsync(CreateBusinessCategoryDto dto)
         {
             try
             {

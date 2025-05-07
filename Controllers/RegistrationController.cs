@@ -34,7 +34,7 @@ namespace BookingService.Controllers
         /// <param name="dto">Email address to which the confirmation code should be sent.</param>
         /// <returns>Expiration time of the generated code or an error message.</returns>
         [HttpPost("email-code")]
-        public async Task<IActionResult> RequestEmailCode(RegistrationEmailCodeRequestDto dto)
+        public async Task<IActionResult> RequestEmailCode(RequestEmailCodeDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace BookingService.Controllers
         /// <param name="dto">User registration data including.</param>
         /// <returns>201 Created with the new user's ID or appropriate error message</returns>
         [HttpPost("users")]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto dto)
+        public async Task<IActionResult> RegisterUser([FromBody] CreateUserDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace BookingService.Controllers
         /// <param name="dto">Business registration data.</param>
         /// <returns>201 Created with the new business's ID or appropriate error message.</returns>
         [HttpPost("businesses")]
-        public async Task<IActionResult> RegisterBusiness([FromBody] RegisterBusinessDto dto)
+        public async Task<IActionResult> RegisterBusiness([FromBody] CreateBusinessDto dto)
         {
             if (!ModelState.IsValid)
             {

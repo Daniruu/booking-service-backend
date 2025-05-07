@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class BusinessRegistrationDataUpdateDto
+    public class PatchBusinessRegistrationDataDto
     {
         [MaxLength(10)]
         public string? Nip { get; set; }

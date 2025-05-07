@@ -2,7 +2,7 @@
 
 namespace BookingService.DTOs
 {
-    public class AddressUpdateDto
+    public class UpdateAddressDto
     {
         [Required]
         public string PostalCode { get; set; }

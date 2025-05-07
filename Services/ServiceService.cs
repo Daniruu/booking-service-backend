@@ -78,7 +78,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> with the newly created service;
         /// or 404 if the business does not exist.
         /// </returns>
-        public async Task<ServiceResult<ServiceDto>> AddServiceAsync(int businessId, ServiceCreateDto dto)
+        public async Task<ServiceResult<ServiceDto>> AddServiceAsync(int businessId, CreateServiceDto dto)
         {
             if (businessId < 0)
             {
@@ -182,7 +182,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> containing the updated service;
         /// or 404/403 if the service is not found or doesn't belong to the business.
         /// </returns>
-        public async Task<ServiceResult<ServiceDto>> UpdateServiceAsync(int serviceId, int businessId, ServiceUpdateDto dto)
+        public async Task<ServiceResult<ServiceDto>> UpdateServiceAsync(int serviceId, int businessId, UpdateServiceDto dto)
         {
             if (serviceId < 0 || businessId < 0)
             {
@@ -229,32 +229,32 @@ namespace BookingService.Services
         /// 403 if the service does not belong to the business;
         /// 404 if the service is not found.
         /// </returns>
-        public async Task<ServiceResult<UpdatedServiceGroupDto>> ReorderServiceAsync(int serviceId, int businessId, ServiceReorderDto dto)
+        public async Task<ServiceResult<ServiceGroupUpdatedDto>> ReorderServiceAsync(int serviceId, int businessId, ReorderServiceDto dto)
         {
             if (serviceId < 0 || businessId < 0 || dto.NewOrder <= 0)
             {
                 _logger.LogWarning("Invalid input for reorder. ServiceId: {ServiceId}, BusinessId: {BusinessId}, NewOrder: {NewOrder}", serviceId, businessId, dto.NewOrder);
-                return ServiceResult<UpdatedServiceGroupDto>.Failure("Invalid input.", 400);
+                return ServiceResult<ServiceGroupUpdatedDto>.Failure("Invalid input.", 400);
             }
 
             var serviceToMove = await _serviceRepository.GetByIdAsync(serviceId);
             if (serviceToMove == null)
             {
                 _logger.LogWarning("Service {ServiceId} not found.", serviceId);
-                return ServiceResult<UpdatedServiceGroupDto>.Failure("Service not found.", 404);
+                return ServiceResult<ServiceGroupUpdatedDto>.Failure("Service not found.", 404);
             }
 
             if (serviceToMove.BusinessId != businessId)
             {
                 _logger.LogWarning("Unauthorized reorder attempt. ServiceId: {ServiceId}, BusinessId: {BusinessId}", serviceId, businessId);
-                return ServiceResult<UpdatedServiceGroupDto>.Failure("Access denied.", 403);
+                return ServiceResult<ServiceGroupUpdatedDto>.Failure("Access denied.", 403);
             }
 
             var targetGroup = await _serviceGroupRepository.GetByIdAsync(dto.ServiceGroupId);
             if (targetGroup == null || targetGroup.BusinessId != businessId)
             {
                 _logger.LogWarning("Target service group {GroupId} is invalid or does not belong to business {BusinessId}.", dto.ServiceGroupId, businessId);
-                return ServiceResult<UpdatedServiceGroupDto>.Failure("Invalid service group.", 400);
+                return ServiceResult<ServiceGroupUpdatedDto>.Failure("Invalid service group.", 400);
             }
 
             var currentGroupId = serviceToMove.ServiceGroupId;
@@ -294,7 +294,7 @@ namespace BookingService.Services
                 await _serviceRepository.UpdateRangeAsync(servicesInCurrentGroup);
             }
 
-            var dtoResult = new UpdatedServiceGroupDto
+            var dtoResult = new ServiceGroupUpdatedDto
             {
                 IsGroupChanged = isGroupChanged,
                 OldGroupServices = _mapper.Map<List<ServiceDto>>(servicesInCurrentGroup),
@@ -302,7 +302,7 @@ namespace BookingService.Services
             };
 
             _logger.LogInformation("Service {ServiceId} moved to group {NewGroupId} at position {NewOrder}.", serviceId, dto.ServiceGroupId, dto.NewOrder);
-            return ServiceResult<UpdatedServiceGroupDto>.SuccessResult(dtoResult);
+            return ServiceResult<ServiceGroupUpdatedDto>.SuccessResult(dtoResult);
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace BookingService.Services
         /// A <see cref="ServiceResult{ServiceDto}"/> containing the updated service;
         /// or 404/403 if the service is not found or does not belong to the business.
         /// </returns>
-        public async Task<ServiceResult<ServiceDto>> PatchServiceAsync(int serviceId, int businessId, ServicePatchDto dto)
+        public async Task<ServiceResult<ServiceDto>> PatchServiceAsync(int serviceId, int businessId, PatchServiceDto dto)
         {
             if (serviceId < 0 || businessId < 0)
             {

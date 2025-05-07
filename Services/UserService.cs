@@ -68,7 +68,7 @@ namespace BookingService.Services
         /// <remarks>
         /// This method does not update other fields such as email, phone, or avatar.
         /// </remarks>
-        public async Task<ServiceResult> UpdateUserAsync(int userId, UserUpdateDto dto)
+        public async Task<ServiceResult> UpdateUserAsync(int userId, PatchUserDto dto)
         {
             if (userId < 0)
             {

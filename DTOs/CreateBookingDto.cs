@@ -1,6 +1,6 @@
 ﻿namespace BookingService.DTOs
 {
-    public class BookingCreateDto
+    public class CreateBookingDto
     {
         public int ServiceId { get; set; }
         public DateTimeOffset StartTime { get; set; }
